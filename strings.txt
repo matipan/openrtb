@@ -1,0 +1,6 @@
+goos: darwin
+goarch: amd64
+pkg: github.com/matipan/openrtb
+BenchmarkRequest_UnmarshalJSON-12    	  220496	      5334 ns/op	     696 B/op	      21 allocs/op
+PASS
+ok  	github.com/matipan/openrtb	1.456s
