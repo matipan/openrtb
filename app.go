@@ -6,9 +6,9 @@ import (
 
 //easyjson:json
 type App struct {
-	Name      []byte      `json:"name"`
-	Bundle    []byte      `json:"bundle"`
-	ID        []byte      `json:"id"`
+	Name      string      `json:"name"`
+	Bundle    string      `json:"bundle"`
+	ID        string      `json:"id"`
 	Publisher *Publisher  `json:"publisher"`
 	Content   *AppContent `json:"content"`
 	Ext       *AppExt     `json:"ext"`
@@ -16,22 +16,22 @@ type App struct {
 
 //easyjson:json
 type Publisher struct {
-	ID     []byte `json:"id"`
-	Name   []byte `json:"name"`
-	CAT    []byte `json:"cat"`
-	Domain []byte `json:"domain"`
+	ID     string `json:"id"`
+	Name   string `json:"name"`
+	CAT    string `json:"cat"`
+	Domain string `json:"domain"`
 }
 
 //easyjson:json
 type AppContent struct {
-	ID       []byte `json:"id"`
-	Title    []byte `json:"title"`
-	Language []byte `json:"language"`
+	ID       string `json:"id"`
+	Title    string `json:"title"`
+	Language string `json:"language"`
 }
 
 //easyjson:json
 type AppExt struct {
-	Devuserid []byte `json:"devuserid"`
+	Devuserid string `json:"devuserid"`
 }
 
 const (
@@ -59,17 +59,17 @@ var (
 func (a *App) setField(idx int, value []byte, _ jsonparser.ValueType, _ error) {
 	switch fieldIdx(idx) {
 	case fieldAppName:
-		a.Name = value
+		a.Name = string(value)
 	case fieldAppPubId:
-		a.Publisher.ID = value
+		a.Publisher.ID = string(value)
 	case fieldAppBundle:
-		a.Bundle = value
+		a.Bundle = string(value)
 	case fieldAppLanguage:
-		a.Content.Language = value
+		a.Content.Language = string(value)
 	case fieldAppId:
-		a.ID = value
+		a.ID = string(value)
 	case fieldExtDevUserId:
-		a.Ext.Devuserid = value
+		a.Ext.Devuserid = string(value)
 	}
 }
 

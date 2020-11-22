@@ -27,10 +27,10 @@ var (
 type Request struct {
 	At     int64    `json:"at"`
 	Tmax   int64    `json:"tmax"`
-	ID     []byte   `json:"id"`
-	BCat   [][]byte `json:"bcat"`
-	BAdv   [][]byte `json:"badv"`
-	BApp   [][]byte `json:"bapp"`
+	ID     string   `json:"id"`
+	BCat   []string `json:"bcat"`
+	BAdv   []string `json:"badv"`
+	BApp   []string `json:"bapp"`
 	Imps   []*Imp   `json:"imp"`
 	Device *Device  `json:"device"`
 	App    *App     `json:"app"`
@@ -83,23 +83,23 @@ func (data *Request) setField(idx int, value []byte, _ jsonparser.ValueType, _ e
 		data.App = &App{}
 		data.App.UnmarshalJSONReq(value)
 	case fieldId:
-		data.ID = value
+		data.ID = string(value)
 	case fieldAt:
 		data.At, _ = strconv.ParseInt(string(value), 10, 64)
 	case fieldBcat:
-		data.BCat = [][]byte{}
+		data.BCat = []string{}
 		jsonparser.ArrayEach(value, func(arrdata []byte, dataType jsonparser.ValueType, offset int, err error) {
-			data.BCat = append(data.BCat, value)
+			data.BCat = append(data.BCat, string(value))
 		})
 	case fieldBadv:
-		data.BAdv = [][]byte{}
+		data.BAdv = []string{}
 		jsonparser.ArrayEach(value, func(arrdata []byte, dataType jsonparser.ValueType, offset int, err error) {
-			data.BAdv = append(data.BAdv, value)
+			data.BAdv = append(data.BAdv, string(value))
 		})
 	case fieldBapp:
-		data.BApp = [][]byte{}
+		data.BApp = []string{}
 		jsonparser.ArrayEach(value, func(arrdata []byte, dataType jsonparser.ValueType, offset int, err error) {
-			data.BApp = append(data.BApp, value)
+			data.BApp = append(data.BApp, string(value))
 		})
 	case fieldRegs:
 		data.Regs = &Regs{}

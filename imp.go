@@ -12,9 +12,9 @@ import (
 type Imp struct {
 	Bidfloor       float64    `json:"bidfloor"`
 	Secure         int        `json:"secure"`
-	BidfloorCur    []byte     `json:"bidfloorcur"`
-	DisplayManager []byte     `json:"displaymanager"`
-	ID             []byte     `json:"id"`
+	BidfloorCur    string     `json:"bidfloorcur"`
+	DisplayManager string     `json:"displaymanager"`
+	ID             string     `json:"id"`
 	Banner         *ImpBanner `json:"banner"`
 	Video          *ImpVideo  `json:"video"`
 }

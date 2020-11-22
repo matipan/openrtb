@@ -26,15 +26,15 @@ var (
 
 //easyjson:json
 type Device struct {
-	IP             []byte     `json:"ip"`
-	UA             []byte     `json:"ua"`
-	Language       []byte     `json:"language"`
-	OS             []byte     `json:"os"`
-	OSV            []byte     `json:"osv"`
-	IFA            []byte     `json:"ifa"`
-	HWV            []byte     `json:"hwv"`
-	Model          []byte     `json:"model"`
-	DNT            []byte     `json:"dnt"`
+	IP             string     `json:"ip"`
+	UA             string     `json:"ua"`
+	Language       string     `json:"language"`
+	OS             string     `json:"os"`
+	OSV            string     `json:"osv"`
+	IFA            string     `json:"ifa"`
+	HWV            string     `json:"hwv"`
+	Model          string     `json:"model"`
+	DNT            string     `json:"dnt"`
 	H              int64      `json:"h"`
 	W              int64      `json:"w"`
 	ConnectionType int64      `json:"connectionType"`
@@ -44,7 +44,7 @@ type Device struct {
 
 //easyjson:json
 type DeviceExt struct {
-	IFV []byte `json:"ifv"`
+	IFV string `json:"ifv"`
 }
 
 func (d *Device) UnmarshalJSONSimd(b []byte) error {
@@ -106,23 +106,23 @@ func (d *Device) parse(iter *simdjson.Iter, obj *simdjson.Object) error {
 			}
 			switch {
 			case bytes.Compare(name, ipKey) == 0:
-				d.IP = b
+				d.IP = string(b)
 			case bytes.Compare(name, uaKey) == 0:
-				d.UA = b
+				d.UA = string(b)
 			case bytes.Compare(name, osKey) == 0:
-				d.OS = b
+				d.OS = string(b)
 			case bytes.Compare(name, osvKey) == 0:
-				d.OSV = b
+				d.OSV = string(b)
 			case bytes.Compare(name, ifaKey) == 0:
-				d.IFA = b
+				d.IFA = string(b)
 			case bytes.Compare(name, hwvKey) == 0:
-				d.HWV = b
+				d.HWV = string(b)
 			case bytes.Compare(name, modelKey) == 0:
-				d.Model = b
+				d.Model = string(b)
 			case bytes.Compare(name, dntKey) == 0:
-				d.DNT = b
+				d.DNT = string(b)
 			case bytes.Compare(name, langKey) == 0:
-				d.Language = b
+				d.Language = string(b)
 			}
 		}
 	}
@@ -172,23 +172,23 @@ var deviceFields = []rtbFieldDef{
 func (data *Device) setField(idx int, value []byte, _ jsonparser.ValueType, _ error) {
 	switch fieldIdx(idx) {
 	case fieldDeviceLanguage: // language
-		data.Language = value
+		data.Language = string(value)
 	case fieldDeviceIp: // ip
-		data.IP = value
+		data.IP = string(value)
 	case fieldDeviceUa: // ua
-		data.UA = value
+		data.UA = string(value)
 	case fieldDeviceOs: // os
-		data.OS = value
+		data.OS = string(value)
 	case fieldDeviceOsv: // osv
-		data.OSV = value
+		data.OSV = string(value)
 	case fieldDeviceIfa: // ifa
-		data.IFA = value
+		data.IFA = string(value)
 	case fieldDeviceHwv: // hwv
-		data.HWV = value
+		data.HWV = string(value)
 	case fieldDeviceModel: //model
-		data.Model = value
+		data.Model = string(value)
 	case fieldDeviceDnt: // dnt
-		data.DNT = value
+		data.DNT = string(value)
 	}
 }
 

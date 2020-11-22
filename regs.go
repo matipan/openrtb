@@ -14,8 +14,8 @@ type Regs struct {
 
 //easyjson:json
 type RegsExt struct {
-	GDPR []byte `json:"gdpr"`
-	CCPA []byte `json:"us_privacy"`
+	GDPR string `json:"gdpr"`
+	CCPA string `json:"us_privacy"`
 }
 
 const (
@@ -39,9 +39,9 @@ func (r *Regs) setField(idx int, value []byte, _ jsonparser.ValueType, _ error) 
 	case fieldRegsCoppa:
 		r.COPPA, _ = strconv.ParseInt(string(value), 10, 64)
 	case fieldRegsExtGdpr:
-		r.Ext.GDPR = value
+		r.Ext.GDPR = string(value)
 	case fieldRegsCCPA:
-		r.Ext.CCPA = value
+		r.Ext.CCPA = string(value)
 	}
 }
 

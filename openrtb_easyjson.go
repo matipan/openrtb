@@ -4,7 +4,6 @@ package openrtb
 
 import (
 	json "encoding/json"
-
 	easyjson "github.com/mailru/easyjson"
 	jlexer "github.com/mailru/easyjson/jlexer"
 	jwriter "github.com/mailru/easyjson/jwriter"
@@ -42,12 +41,7 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb(in *jlexer.Lexer, out *Reques
 		case "tmax":
 			out.Tmax = int64(in.Int64())
 		case "id":
-			if in.IsNull() {
-				in.Skip()
-				out.ID = nil
-			} else {
-				out.ID = []byte(in.String())
-			}
+			out.ID = string(in.String())
 		case "bcat":
 			if in.IsNull() {
 				in.Skip()
@@ -56,22 +50,17 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb(in *jlexer.Lexer, out *Reques
 				in.Delim('[')
 				if out.BCat == nil {
 					if !in.IsDelim(']') {
-						out.BCat = make([][]uint8, 0, 2)
+						out.BCat = make([]string, 0, 4)
 					} else {
-						out.BCat = [][]uint8{}
+						out.BCat = []string{}
 					}
 				} else {
 					out.BCat = (out.BCat)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v2 []uint8
-					if in.IsNull() {
-						in.Skip()
-						v2 = nil
-					} else {
-						v2 = []byte(in.String())
-					}
-					out.BCat = append(out.BCat, v2)
+					var v1 string
+					v1 = string(in.String())
+					out.BCat = append(out.BCat, v1)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -84,22 +73,17 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb(in *jlexer.Lexer, out *Reques
 				in.Delim('[')
 				if out.BAdv == nil {
 					if !in.IsDelim(']') {
-						out.BAdv = make([][]uint8, 0, 2)
+						out.BAdv = make([]string, 0, 4)
 					} else {
-						out.BAdv = [][]uint8{}
+						out.BAdv = []string{}
 					}
 				} else {
 					out.BAdv = (out.BAdv)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v4 []uint8
-					if in.IsNull() {
-						in.Skip()
-						v4 = nil
-					} else {
-						v4 = []byte(in.String())
-					}
-					out.BAdv = append(out.BAdv, v4)
+					var v2 string
+					v2 = string(in.String())
+					out.BAdv = append(out.BAdv, v2)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -112,22 +96,17 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb(in *jlexer.Lexer, out *Reques
 				in.Delim('[')
 				if out.BApp == nil {
 					if !in.IsDelim(']') {
-						out.BApp = make([][]uint8, 0, 2)
+						out.BApp = make([]string, 0, 4)
 					} else {
-						out.BApp = [][]uint8{}
+						out.BApp = []string{}
 					}
 				} else {
 					out.BApp = (out.BApp)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v6 []uint8
-					if in.IsNull() {
-						in.Skip()
-						v6 = nil
-					} else {
-						v6 = []byte(in.String())
-					}
-					out.BApp = append(out.BApp, v6)
+					var v3 string
+					v3 = string(in.String())
+					out.BApp = append(out.BApp, v3)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -148,17 +127,17 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb(in *jlexer.Lexer, out *Reques
 					out.Imps = (out.Imps)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v8 *Imp
+					var v4 *Imp
 					if in.IsNull() {
 						in.Skip()
-						v8 = nil
+						v4 = nil
 					} else {
-						if v8 == nil {
-							v8 = new(Imp)
+						if v4 == nil {
+							v4 = new(Imp)
 						}
-						(*v8).UnmarshalEasyJSON(in)
+						(*v4).UnmarshalEasyJSON(in)
 					}
-					out.Imps = append(out.Imps, v8)
+					out.Imps = append(out.Imps, v4)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -229,11 +208,11 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb(out *jwriter.Writer, in Reque
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v11, v12 := range in.BCat {
-				if v11 > 0 {
+			for v5, v6 := range in.BCat {
+				if v5 > 0 {
 					out.RawByte(',')
 				}
-				out.String(string(v12))
+				out.String(string(v6))
 			}
 			out.RawByte(']')
 		}
@@ -245,11 +224,11 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb(out *jwriter.Writer, in Reque
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v15, v16 := range in.BAdv {
-				if v15 > 0 {
+			for v7, v8 := range in.BAdv {
+				if v7 > 0 {
 					out.RawByte(',')
 				}
-				out.String(string(v16))
+				out.String(string(v8))
 			}
 			out.RawByte(']')
 		}
@@ -261,11 +240,11 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb(out *jwriter.Writer, in Reque
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v19, v20 := range in.BApp {
-				if v19 > 0 {
+			for v9, v10 := range in.BApp {
+				if v9 > 0 {
 					out.RawByte(',')
 				}
-				out.String(string(v20))
+				out.String(string(v10))
 			}
 			out.RawByte(']')
 		}
@@ -277,14 +256,14 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb(out *jwriter.Writer, in Reque
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v23, v24 := range in.Imps {
-				if v23 > 0 {
+			for v11, v12 := range in.Imps {
+				if v11 > 0 {
 					out.RawByte(',')
 				}
-				if v24 == nil {
+				if v12 == nil {
 					out.RawString("null")
 				} else {
-					(*v24).MarshalEasyJSON(out)
+					(*v12).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -320,23 +299,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb(out *jwriter.Writer, in Reque
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v Request) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v Request) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *Request) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -363,19 +328,9 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb1(in *jlexer.Lexer, out *RegsE
 		}
 		switch key {
 		case "gdpr":
-			if in.IsNull() {
-				in.Skip()
-				out.GDPR = nil
-			} else {
-				out.GDPR = []byte(in.String())
-			}
+			out.GDPR = string(in.String())
 		case "us_privacy":
-			if in.IsNull() {
-				in.Skip()
-				out.CCPA = nil
-			} else {
-				out.CCPA = []byte(in.String())
-			}
+			out.CCPA = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -403,23 +358,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb1(out *jwriter.Writer, in Regs
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v RegsExt) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb1(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v RegsExt) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb1(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *RegsExt) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb1(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -488,23 +429,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb2(out *jwriter.Writer, in Regs
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v Regs) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb2(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v Regs) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb2(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *Regs) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb2(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -531,33 +458,13 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb3(in *jlexer.Lexer, out *Publi
 		}
 		switch key {
 		case "id":
-			if in.IsNull() {
-				in.Skip()
-				out.ID = nil
-			} else {
-				out.ID = []byte(in.String())
-			}
+			out.ID = string(in.String())
 		case "name":
-			if in.IsNull() {
-				in.Skip()
-				out.Name = nil
-			} else {
-				out.Name = []byte(in.String())
-			}
+			out.Name = string(in.String())
 		case "cat":
-			if in.IsNull() {
-				in.Skip()
-				out.CAT = nil
-			} else {
-				out.CAT = []byte(in.String())
-			}
+			out.CAT = string(in.String())
 		case "domain":
-			if in.IsNull() {
-				in.Skip()
-				out.Domain = nil
-			} else {
-				out.Domain = []byte(in.String())
-			}
+			out.Domain = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -595,23 +502,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb3(out *jwriter.Writer, in Publ
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v Publisher) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb3(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v Publisher) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb3(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *Publisher) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb3(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -667,9 +560,9 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb4(in *jlexer.Lexer, out *ImpVi
 					out.Protocols = (out.Protocols)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v43 int64
-					v43 = int64(in.Int64())
-					out.Protocols = append(out.Protocols, v43)
+					var v13 int64
+					v13 = int64(in.Int64())
+					out.Protocols = append(out.Protocols, v13)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -690,9 +583,9 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb4(in *jlexer.Lexer, out *ImpVi
 					out.Battr = (out.Battr)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v44 int64
-					v44 = int64(in.Int64())
-					out.Battr = append(out.Battr, v44)
+					var v14 int64
+					v14 = int64(in.Int64())
+					out.Battr = append(out.Battr, v14)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -713,9 +606,9 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb4(in *jlexer.Lexer, out *ImpVi
 					out.Mimes = (out.Mimes)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v45 int64
-					v45 = int64(in.Int64())
-					out.Mimes = append(out.Mimes, v45)
+					var v15 int64
+					v15 = int64(in.Int64())
+					out.Mimes = append(out.Mimes, v15)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -776,11 +669,11 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb4(out *jwriter.Writer, in ImpV
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v46, v47 := range in.Protocols {
-				if v46 > 0 {
+			for v16, v17 := range in.Protocols {
+				if v16 > 0 {
 					out.RawByte(',')
 				}
-				out.Int64(int64(v47))
+				out.Int64(int64(v17))
 			}
 			out.RawByte(']')
 		}
@@ -792,11 +685,11 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb4(out *jwriter.Writer, in ImpV
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v48, v49 := range in.Battr {
-				if v48 > 0 {
+			for v18, v19 := range in.Battr {
+				if v18 > 0 {
 					out.RawByte(',')
 				}
-				out.Int64(int64(v49))
+				out.Int64(int64(v19))
 			}
 			out.RawByte(']')
 		}
@@ -808,11 +701,11 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb4(out *jwriter.Writer, in ImpV
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v50, v51 := range in.Mimes {
-				if v50 > 0 {
+			for v20, v21 := range in.Mimes {
+				if v20 > 0 {
 					out.RawByte(',')
 				}
-				out.Int64(int64(v51))
+				out.Int64(int64(v21))
 			}
 			out.RawByte(']')
 		}
@@ -820,23 +713,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb4(out *jwriter.Writer, in ImpV
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v ImpVideo) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb4(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v ImpVideo) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb4(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *ImpVideo) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb4(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -893,23 +772,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb5(out *jwriter.Writer, in ImpF
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v ImpFormat) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb5(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v ImpFormat) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb5(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *ImpFormat) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb5(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -957,9 +822,9 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb6(in *jlexer.Lexer, out *ImpBa
 					out.API = (out.API)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v52 int64
-					v52 = int64(in.Int64())
-					out.API = append(out.API, v52)
+					var v22 int64
+					v22 = int64(in.Int64())
+					out.API = append(out.API, v22)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -980,9 +845,9 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb6(in *jlexer.Lexer, out *ImpBa
 					out.Expdir = (out.Expdir)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v53 int64
-					v53 = int64(in.Int64())
-					out.Expdir = append(out.Expdir, v53)
+					var v23 int64
+					v23 = int64(in.Int64())
+					out.Expdir = append(out.Expdir, v23)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -1003,17 +868,17 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb6(in *jlexer.Lexer, out *ImpBa
 					out.Format = (out.Format)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v54 *ImpFormat
+					var v24 *ImpFormat
 					if in.IsNull() {
 						in.Skip()
-						v54 = nil
+						v24 = nil
 					} else {
-						if v54 == nil {
-							v54 = new(ImpFormat)
+						if v24 == nil {
+							v24 = new(ImpFormat)
 						}
-						(*v54).UnmarshalEasyJSON(in)
+						(*v24).UnmarshalEasyJSON(in)
 					}
-					out.Format = append(out.Format, v54)
+					out.Format = append(out.Format, v24)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -1054,11 +919,11 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb6(out *jwriter.Writer, in ImpB
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v55, v56 := range in.API {
-				if v55 > 0 {
+			for v25, v26 := range in.API {
+				if v25 > 0 {
 					out.RawByte(',')
 				}
-				out.Int64(int64(v56))
+				out.Int64(int64(v26))
 			}
 			out.RawByte(']')
 		}
@@ -1070,11 +935,11 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb6(out *jwriter.Writer, in ImpB
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v57, v58 := range in.Expdir {
-				if v57 > 0 {
+			for v27, v28 := range in.Expdir {
+				if v27 > 0 {
 					out.RawByte(',')
 				}
-				out.Int64(int64(v58))
+				out.Int64(int64(v28))
 			}
 			out.RawByte(']')
 		}
@@ -1086,14 +951,14 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb6(out *jwriter.Writer, in ImpB
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v59, v60 := range in.Format {
-				if v59 > 0 {
+			for v29, v30 := range in.Format {
+				if v29 > 0 {
 					out.RawByte(',')
 				}
-				if v60 == nil {
+				if v30 == nil {
 					out.RawString("null")
 				} else {
-					(*v60).MarshalEasyJSON(out)
+					(*v30).MarshalEasyJSON(out)
 				}
 			}
 			out.RawByte(']')
@@ -1102,23 +967,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb6(out *jwriter.Writer, in ImpB
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v ImpBanner) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb6(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v ImpBanner) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb6(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *ImpBanner) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb6(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -1149,26 +1000,11 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb7(in *jlexer.Lexer, out *Imp) 
 		case "secure":
 			out.Secure = int(in.Int())
 		case "bidfloorcur":
-			if in.IsNull() {
-				in.Skip()
-				out.BidfloorCur = nil
-			} else {
-				out.BidfloorCur = []byte(in.String())
-			}
+			out.BidfloorCur = string(in.String())
 		case "displaymanager":
-			if in.IsNull() {
-				in.Skip()
-				out.DisplayManager = nil
-			} else {
-				out.DisplayManager = []byte(in.String())
-			}
+			out.DisplayManager = string(in.String())
 		case "id":
-			if in.IsNull() {
-				in.Skip()
-				out.ID = nil
-			} else {
-				out.ID = []byte(in.String())
-			}
+			out.ID = string(in.String())
 		case "banner":
 			if in.IsNull() {
 				in.Skip()
@@ -1249,23 +1085,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb7(out *jwriter.Writer, in Imp)
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v Imp) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb7(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v Imp) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb7(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *Imp) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb7(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -1292,12 +1114,7 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb8(in *jlexer.Lexer, out *Devic
 		}
 		switch key {
 		case "ifv":
-			if in.IsNull() {
-				in.Skip()
-				out.IFV = nil
-			} else {
-				out.IFV = []byte(in.String())
-			}
+			out.IFV = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -1320,23 +1137,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb8(out *jwriter.Writer, in Devi
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v DeviceExt) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb8(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v DeviceExt) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb8(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *DeviceExt) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb8(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -1363,68 +1166,23 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb9(in *jlexer.Lexer, out *Devic
 		}
 		switch key {
 		case "ip":
-			if in.IsNull() {
-				in.Skip()
-				out.IP = nil
-			} else {
-				out.IP = []byte(in.String())
-			}
+			out.IP = string(in.String())
 		case "ua":
-			if in.IsNull() {
-				in.Skip()
-				out.UA = nil
-			} else {
-				out.UA = []byte(in.String())
-			}
+			out.UA = string(in.String())
 		case "language":
-			if in.IsNull() {
-				in.Skip()
-				out.Language = nil
-			} else {
-				out.Language = []byte(in.String())
-			}
+			out.Language = string(in.String())
 		case "os":
-			if in.IsNull() {
-				in.Skip()
-				out.OS = nil
-			} else {
-				out.OS = []byte(in.String())
-			}
+			out.OS = string(in.String())
 		case "osv":
-			if in.IsNull() {
-				in.Skip()
-				out.OSV = nil
-			} else {
-				out.OSV = []byte(in.String())
-			}
+			out.OSV = string(in.String())
 		case "ifa":
-			if in.IsNull() {
-				in.Skip()
-				out.IFA = nil
-			} else {
-				out.IFA = []byte(in.String())
-			}
+			out.IFA = string(in.String())
 		case "hwv":
-			if in.IsNull() {
-				in.Skip()
-				out.HWV = nil
-			} else {
-				out.HWV = []byte(in.String())
-			}
+			out.HWV = string(in.String())
 		case "model":
-			if in.IsNull() {
-				in.Skip()
-				out.Model = nil
-			} else {
-				out.Model = []byte(in.String())
-			}
+			out.Model = string(in.String())
 		case "dnt":
-			if in.IsNull() {
-				in.Skip()
-				out.DNT = nil
-			} else {
-				out.DNT = []byte(in.String())
-			}
+			out.DNT = string(in.String())
 		case "h":
 			out.H = int64(in.Int64())
 		case "w":
@@ -1534,23 +1292,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb9(out *jwriter.Writer, in Devi
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v Device) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb9(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v Device) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb9(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *Device) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb9(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -1577,12 +1321,7 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb10(in *jlexer.Lexer, out *AppE
 		}
 		switch key {
 		case "devuserid":
-			if in.IsNull() {
-				in.Skip()
-				out.Devuserid = nil
-			} else {
-				out.Devuserid = []byte(in.String())
-			}
+			out.Devuserid = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -1605,23 +1344,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb10(out *jwriter.Writer, in App
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v AppExt) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb10(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v AppExt) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb10(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *AppExt) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb10(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -1648,26 +1373,11 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb11(in *jlexer.Lexer, out *AppC
 		}
 		switch key {
 		case "id":
-			if in.IsNull() {
-				in.Skip()
-				out.ID = nil
-			} else {
-				out.ID = []byte(in.String())
-			}
+			out.ID = string(in.String())
 		case "title":
-			if in.IsNull() {
-				in.Skip()
-				out.Title = nil
-			} else {
-				out.Title = []byte(in.String())
-			}
+			out.Title = string(in.String())
 		case "language":
-			if in.IsNull() {
-				in.Skip()
-				out.Language = nil
-			} else {
-				out.Language = []byte(in.String())
-			}
+			out.Language = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -1700,23 +1410,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb11(out *jwriter.Writer, in App
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v AppContent) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb11(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v AppContent) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb11(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *AppContent) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb11(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
@@ -1743,26 +1439,11 @@ func easyjsonB27eec76DecodeGithubComMatipanOpenrtb12(in *jlexer.Lexer, out *App)
 		}
 		switch key {
 		case "name":
-			if in.IsNull() {
-				in.Skip()
-				out.Name = nil
-			} else {
-				out.Name = []byte(in.String())
-			}
+			out.Name = string(in.String())
 		case "bundle":
-			if in.IsNull() {
-				in.Skip()
-				out.Bundle = nil
-			} else {
-				out.Bundle = []byte(in.String())
-			}
+			out.Bundle = string(in.String())
 		case "id":
-			if in.IsNull() {
-				in.Skip()
-				out.ID = nil
-			} else {
-				out.ID = []byte(in.String())
-			}
+			out.ID = string(in.String())
 		case "publisher":
 			if in.IsNull() {
 				in.Skip()
@@ -1852,23 +1533,9 @@ func easyjsonB27eec76EncodeGithubComMatipanOpenrtb12(out *jwriter.Writer, in App
 	out.RawByte('}')
 }
 
-// MarshalJSON supports json.Marshaler interface
-func (v App) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB27eec76EncodeGithubComMatipanOpenrtb12(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v App) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB27eec76EncodeGithubComMatipanOpenrtb12(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *App) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB27eec76DecodeGithubComMatipanOpenrtb12(&r, v)
-	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
